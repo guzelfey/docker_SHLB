@@ -63,8 +63,8 @@ RUN wget https://gitlab.com/german.tischler/libmaus2/-/archive/2.0.810-release-2
     aclocal && \
     autoreconf -i -f && \
     ./configure --prefix=${SOFT}/libmaus2-2.0.810-release-20220216151520 && \
-    make -j8 && \
-    make -j8 install
+    make && \
+    make install
 
 #biobambam2 2.0.183-release-20210802180148
 RUN wget https://gitlab.com/german.tischler/biobambam2/-/archive/2.0.183-release-20210802180148/biobambam2-2.0.183-release-20210802180148.tar.bz2 && \
@@ -72,5 +72,5 @@ RUN wget https://gitlab.com/german.tischler/biobambam2/-/archive/2.0.183-release
     rm -f biobambam2-2.0.183-release-20210802180148.tar.bz2 && \
     cd biobambam2-2.0.183-release-20210802180148 && \
     autoreconf -if && \
-    ./configure --with-libmaus2=/soft/libmouse2_2.0.810 && \
+    ./configure --with-libmaus2=${SOFT}/libmaus2-2.0.810-release-20220216151520 && \
     make install
