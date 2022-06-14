@@ -76,5 +76,5 @@ RUN wget https://gitlab.com/german.tischler/biobambam2/-/archive/2.0.183-release
     ./configure --with-libmaus2=/soft/libmaus2-2.0.810-release-20220216151520 --prefix=/soft/biobambam2-2.0.183-release-20210802180148 && \
     make -j install
 
-ENV PATH=${PATH}:/soft/htslib-1.15.1/bin:/soft/libdeflate-1.11/bin:/soft/samtools_1.15.1/bin
+ENV PATH=${PATH}:/soft/htslib-1.15.1/bin:/soft/libdeflate-1.11/bin:/soft/samtools-1.15.1/bin
 ENV PATH=${PATH}:/soft/libmaus2-2.0.810-release-20220216151520/bin:/soft/biobambam2-2.0.183-release-20210802180148/bin
