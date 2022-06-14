@@ -26,16 +26,16 @@ RUN wget https://github.com/samtools/htslib/releases/download/1.15.1/htslib-1.15
     rm -f htslib-1.15.1.tar.bz2 && \
     cd htslib-1.15.1 && \
     ./configure --prefix=/soft/htslib-1.15.1 && \
-    make && \
-    make install
+    make -j && \
+    make -j install
 
 #libdeflate 1.11 relesed 2022-05-24
 RUN wget https://github.com/ebiggers/libdeflate/archive/refs/tags/v1.11.tar.gz && \
     tar -vxf v1.11.tar.gz && \
     rm -f v1.11.tar.gz && \
     cd libdeflate-1.11 && \
-    make && \
-    make install PREFIX=/soft/libdeflate-1.11
+    make -j && \
+    make -j install PREFIX=/soft/libdeflate-1.11
 
 #samtools 1.15.1 released 2022-04-07
 RUN wget https://github.com/samtools/samtools/releases/download/1.15.1/samtools-1.15.1.tar.bz2 && \
@@ -43,9 +43,8 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.15.1/samtools-
     rm -f samtools-1.15.1.tar.bz2 && \
     cd samtools-1.15.1 && \
     ./configure --with-libdeflate=/soft/libdeflate-1.11 --with-htslib=/soft/htslib-1.15.1 --prefix=/soft/samtools-1.15.1 && \
-    make && \
-    make install
-ENV PATH=${PATH}:/soft/samtools_1.15.1/bin
+    make -j && \
+    make -j install
 
 #gcc update for libmaus2 to work
 RUN apt-get update && \
@@ -64,8 +63,8 @@ RUN wget https://gitlab.com/german.tischler/libmaus2/-/archive/2.0.810-release-2
     aclocal && \
     autoreconf -i -f && \
     ./configure --prefix=/soft/libmaus2-2.0.810-release-20220216151520 && \
-    make -j2 && \
-    make -j2 install
+    make -j && \
+    make -j install
 
 #biobambam2 2.0.183-release-20210802180148
 RUN wget https://gitlab.com/german.tischler/biobambam2/-/archive/2.0.183-release-20210802180148/biobambam2-2.0.183-release-20210802180148.tar.bz2 && \
@@ -75,4 +74,7 @@ RUN wget https://gitlab.com/german.tischler/biobambam2/-/archive/2.0.183-release
     autoreconf -if && \
     export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/soft/libmaus2-2.0.810-release-20220216151520/lib/pkgconfig && \
     ./configure --with-libmaus2=/soft/libmaus2-2.0.810-release-20220216151520 --prefix=/soft/biobambam2-2.0.183-release-20210802180148 && \
-    make -j2 install
+    make -j install
+
+ENV PATH=${PATH}:/soft/htslib-1.15.1/bin:/soft/libdeflate-1.11/bin:/soft/samtools_1.15.1/bin
+ENV PATH=${PATH}:/soft/libmaus2-2.0.810-release-20220216151520/bin:/soft/biobambam2-2.0.183-release-20210802180148/bin
